@@ -8,7 +8,7 @@ const {
 } = require("../controllers/interview.controller");
 const upload = require("../middlewares/file.middleware")
 
-interviewRouter.post("/", authUser, upload.single("resume"), generateInterviewReportController);
+interviewRouter.post("/", upload.single("resume"), authUser, generateInterviewReportController);
 interviewRouter.get("/", authUser, getAllInterviewReportController);
 interviewRouter.get("/report/:interviewId", authUser, getInterviewReportByIdController);
 
