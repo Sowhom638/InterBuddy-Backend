@@ -25,7 +25,13 @@ async function googleLoginUserController(req, res) {
       { expiresIn: "10h" },
     );
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true, //  Prevents XSS (JS can't read it)
+      secure: process.env.NODE_ENV === "production", // 🔒 Required for HTTPS (Vercel)
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", //  Cross-origin support
+      maxAge: 10 * 60 * 60 * 1000, // ️ 10 hours (matches JWT expiresIn)
+      path: "/",
+    });
     return res.status(200).json({
       message: "User authenticated successfully",
       user: {
@@ -51,7 +57,13 @@ async function googleLoginUserController(req, res) {
     { expiresIn: "10h" },
   );
 
-  res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true, //  Prevents XSS (JS can't read it)
+    secure: process.env.NODE_ENV === "production", // 🔒 Required for HTTPS (Vercel)
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", //  Cross-origin support
+    maxAge: 10 * 60 * 60 * 1000, // ️ 10 hours (matches JWT expiresIn)
+    path: "/",
+  });
 
   res.status(201).json({
     message: "User authenticated successfully",
