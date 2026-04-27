@@ -44,11 +44,11 @@ async function generateInterviewReportController(req, res) {
       });
     }
 
-    // 4. Validate user
-    if (!req.user?.id) {
-      console.error("❌ No authenticated user");
-      return res.status(401).json({ message: "Authentication required" });
-    }
+    // // 4. Validate user
+    // if (!req.user?.id) {
+    //   console.error("❌ No authenticated user");
+    //   return res.status(401).json({ message: "Authentication required" });
+    // }
 
     // 5. Call AI service
     console.log("🤖 Calling AI service...");
