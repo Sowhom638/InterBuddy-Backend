@@ -9,6 +9,7 @@ app.use(cors({
     origin: process.env.FRONTEND,
     credentials: true
 }))
+app.options("*", cors());
 const authRouter = require("./routes/auth.route");
 const interviewRouter = require("./routes/interview.route");
 const vapiRouter = require("./routes/vapi.route");
