@@ -13,7 +13,6 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
-app.options("*", cors());
 const authRouter = require("./routes/auth.route");
 const interviewRouter = require("./routes/interview.route");
 const vapiRouter = require("./routes/vapi.route");
