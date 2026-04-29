@@ -67,7 +67,7 @@ async function generateInterviewReport({
 
 ⚠️ Before responding: Validate that your output is syntactically valid JSON. If uncertain, regenerate.`;
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
+    model: "gemini-3-flash-preview",
     contents: prompt,
     config: {
       responseMimeType: "application/json",
