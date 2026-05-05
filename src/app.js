@@ -9,8 +9,6 @@ app.use(
   cors({
     origin: process.env.FRONTEND,
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
 const authRouter = require("./routes/auth.route");
