@@ -19,18 +19,16 @@ async function googleLoginUserController(req, res) {
     const token = jwt.sign(
       {
         id: isUserAlreadyExists._id,
-        email: isUserAlreadyExists.email,
       },
       process.env.JWT_SECRET,
       { expiresIn: "10h" },
     );
 
     res.cookie("token", token, {
-      httpOnly: true, //  Prevents XSS (JS can't read it)
-      secure: process.env.NODE_ENV === "production", // 🔒 Required for HTTPS (Vercel)
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", //  Cross-origin support
-      maxAge: 10 * 60 * 60 * 1000, // ️ 10 hours (matches JWT expiresIn)
-      path: "/",
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      maxAge: 10 * 60 * 60 * 1000, // 10 hours
     });
     return res.status(200).json({
       message: "User authenticated successfully",
@@ -50,19 +48,17 @@ async function googleLoginUserController(req, res) {
   const savedUser = await user.save();
   const token = jwt.sign(
     {
-      id: savedUser._id,
-      email: savedUser.email,
+      id: savedUser._id
     },
     process.env.JWT_SECRET,
     { expiresIn: "10h" },
   );
 
   res.cookie("token", token, {
-    httpOnly: true, //  Prevents XSS (JS can't read it)
-    secure: process.env.NODE_ENV === "production", // 🔒 Required for HTTPS (Vercel)
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", //  Cross-origin support
-    maxAge: 10 * 60 * 60 * 1000, // ️ 10 hours (matches JWT expiresIn)
-    path: "/",
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+    maxAge: 10 * 60 * 60 * 1000, // 10 hours
   });
 
   res.status(201).json({
@@ -71,7 +67,7 @@ async function googleLoginUserController(req, res) {
       id: savedUser._id,
       email: savedUser.email,
       username: savedUser.username,
-      picture: user.picture,
+      picture: savedUser.picture,
     },
   });
 }
